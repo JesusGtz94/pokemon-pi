@@ -1,12 +1,15 @@
 const { Router } = require("express");
-const { Pokemon } = require('../db.js');
+const { Pokemon, Type } = require('../db.js');
 const axios = require('axios');
+const { portalSuspended } = require("pg-protocol/dist/messages");
 
 const pokeRouter = Router();
 
 pokeRouter.get("/",async (req,res) => {
 
     const {name} = req.query;
+
+    // ►►►►►►►►►►►►►►►►►►►►Inicio de busqueda si se reciben Query Params
     if(name) {
         
         try {
@@ -14,6 +17,10 @@ pokeRouter.get("/",async (req,res) => {
             const busquedaNombre = await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
 
             if(busquedaNombre.data) {
+
+                let types = busquedaNombre.data.types.map(type => {
+                    return {name: type.type.name}
+                })
 
                 let pokemon = {
 
@@ -25,7 +32,8 @@ pokeRouter.get("/",async (req,res) => {
                     defense: busquedaNombre.data.stats[2].base_stat,  
                     speed: busquedaNombre.data.stats[5].base_stat,
                     height: busquedaNombre.data.height,
-                    weight: busquedaNombre.data.weight
+                    weight: busquedaNombre.data.weight,
+                    types
 
                 }
 
@@ -34,14 +42,22 @@ pokeRouter.get("/",async (req,res) => {
             }
 
             
-        } catch(e){console.log(e)}
+        } catch{}
         
         try {
             
             let instance = await Pokemon.findOne({
+                
                 where: {
                     name: name
-                }
+                },
+
+                include: [{
+                    model: Type, attributes:['name'], 
+                    through: { 
+                        attributes: []
+                    }
+               }] 
             })   
             
             if(instance) return res.json(instance)
@@ -51,6 +67,7 @@ pokeRouter.get("/",async (req,res) => {
         return res.send("No se encontro el pokemon")
         
     }
+    // Fin de la búsqueda con Query Params ◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄
 
     let resultado, instances;
 
@@ -74,6 +91,11 @@ pokeRouter.get("/",async (req,res) => {
         resultado = await Promise.all(promises);
 
         resultado = await resultado.map(instance => {
+
+            let types = instance.data.types.map(type => {
+                return {name: type.type.name}
+            })
+
             return {
                     id : instance.data.id,
                     name: instance.data.name,
@@ -83,7 +105,8 @@ pokeRouter.get("/",async (req,res) => {
                     defense: instance.data.stats[2].base_stat,  
                     speed: instance.data.stats[5].base_stat,
                     height: instance.data.height,
-                    weight: instance.data.weight
+                    weight: instance.data.weight,
+                    types
             }
         });
 
@@ -96,7 +119,14 @@ pokeRouter.get("/",async (req,res) => {
 
     try{
 
-     instances = await Pokemon.findAll();
+     instances = await Pokemon.findAll({
+         include: [{
+             model: Type, attributes:['name'], 
+             through: { 
+                 attributes: []
+             }
+        }] 
+    });  
 
     } catch(e){
 
@@ -119,6 +149,10 @@ pokeRouter.get("/:id",async (req,res) => {
             
             instance = await axios.get(`https://pokeapi.co/api/v2/pokemon/${id}`)
             instance = instance.data
+
+            let types = instance.types.map(type => {
+                return {name: type.type.name}
+            })
             
             let pokemon = {
                 id : instance.id,
@@ -129,7 +163,8 @@ pokeRouter.get("/:id",async (req,res) => {
                 defense: instance.stats[2].base_stat,  
                 speed: instance.stats[5].base_stat,
                 height: instance.height,
-                weight: instance.weight
+                weight: instance.weight,
+                types
             }
          
             res.json(pokemon);
@@ -145,7 +180,8 @@ pokeRouter.get("/:id",async (req,res) => {
             instance = await Pokemon.findOne({
             where: {
                 id: id
-            }
+            },
+            include: [{model: Type, attributes:['name'], through: {attributes: []}}] 
             });
 
             res.json(instance);
@@ -159,9 +195,9 @@ pokeRouter.get("/:id",async (req,res) => {
 
 pokeRouter.post("/", async (req,res) => {
 
-    const {name,img,hp,attack,defense,speed,height,weight} = req.body;
+    const {name,img,hp,attack,defense,speed,height,weight,type} = req.body;
 
-    if(name.length === 0) return res.send("El nombre del pokemon no puede estar vacío")
+    if(name.length === 0) return res.send("El nombre del pokemon no puede estar vacío") 
 
     try{
     
@@ -184,10 +220,12 @@ pokeRouter.post("/", async (req,res) => {
 
         })
 
+        await newPokemon.setTypes(type) 
+
         return res.json(newPokemon);
 
     } catch(e){
-
+        console.log(e)
         res.send(e);
 
     }

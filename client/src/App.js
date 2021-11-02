@@ -1,9 +1,12 @@
 import './App.css';
+import Catalogo from './Components/catologe';
+
 
 function App() {
   return (
     <div className="App">
-      <h1>Henry Pokemon</h1>
+      <h1>Comenzamos!</h1>
+    <Catalogo/>
     </div>
   );
 }
