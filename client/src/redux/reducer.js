@@ -1,10 +1,11 @@
-import { GET_POKEMONS } from "./actions";
+import { GET_POKEMONS, GET_TYPES, POST_POKEMON } from "./actions";
 
 const initialState = {
 
     pokemonsApi: [],
     pokemonsDb: [],
-    allPokemons: []
+    types: [],
+    postPokemon: []
 
 }
 
@@ -16,8 +17,19 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 pokemonsApi: action.payload[0],
-                pokemonsDb: action.payload[1],
-                allPokemons: [...action.payload[0],...action.payload[1]]
+                pokemonsDb: action.payload[1]
+            }
+
+        case GET_TYPES:
+            return {
+                ...state,
+                types: action.payload
+            }
+
+        case POST_POKEMON:
+            return {
+                ...state,
+                postPokemon: action.payload
             }
 
         default: 

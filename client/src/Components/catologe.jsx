@@ -16,19 +16,11 @@ const Catalogo = () => {
 
     const dispatch = useDispatch();
 
-    
-    const handleClic = (e) => { // Control del boton actualizar
-
-        e.preventDefault();
-        dispatch(getPokemons())
-
-    };
-
     useEffect(() => { // Cargar pokemons al estado de redux al iniciar el componente
 
         dispatch(getPokemons());
  
-    },[])
+    },[dispatch])
 
     const nextHandle = (e) => { // Control del boton next
 
@@ -58,17 +50,38 @@ const Catalogo = () => {
 
         <div style = {{color: "yellow"}}> 
 
-        <Filters show={show} setShow={setShow}/>
-        
-        <div>   <button onClick={handleClic}>Actualizar</button>    </div>
+            <Filters show={show} setShow={setShow}/>
+            <br/>
+            <button disabled={ show.start===0
+                    ? true
+                    : false
+                } onClick={backHandle}>Back</button>
 
-        {show.array
-        ? show.array.slice(show.start,show.end)
-            .map(poke => <Card key = {poke.id} {...poke}/>) 
-        : null}
+            <button disabled={ show.array 
+                    ? show.array[show.end] === undefined
+                        ? true 
+                        : false
+                    : true
+            } onClick={nextHandle}>Next</button>
 
-        <button disabled={show.start===0?true:false} onClick={backHandle}>Back</button>
-        <button disabled={show.array[show.end] === undefined? true : false} onClick={nextHandle}>Next</button>
+
+            {show.array
+            ? show.array.slice(show.start,show.end)
+                .map(poke => <Card key = {poke.id} {...poke}/>) 
+            : <div><h2>Ha ocurrido un error, por favor recarga la página!</h2></div>}
+
+
+            <button disabled={ show.start===0
+                ? true
+                : false
+            } onClick={backHandle}>Back</button>
+
+            <button disabled={ show.array 
+                ? show.array[show.end] === undefined
+                    ? true 
+                    : false
+                : true
+            } onClick={nextHandle}>Next</button>
 
         </div>
 

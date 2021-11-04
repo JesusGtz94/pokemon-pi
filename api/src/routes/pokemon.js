@@ -62,9 +62,13 @@ pokeRouter.get("/",async (req,res) => {
             
             if(instance) return res.json(instance)
 
-        } catch{}
+        } catch(e){
+
+            return res.json(e)
+
+        }
         
-        return res.send("No se encontro el pokemon")
+        return res.status(404).send({message: "Pokemón no encontrado"})
         
     }
     // Fin de la búsqueda con Query Params ◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄◄
@@ -112,7 +116,9 @@ pokeRouter.get("/",async (req,res) => {
 
     } catch(e){
 
-        res.send(e);
+        console.log("Hubo un error en la api");
+        console.log(e);
+        return res.send(e);
         
     }
 
@@ -130,7 +136,9 @@ pokeRouter.get("/",async (req,res) => {
 
     } catch(e){
 
-        res.send(e);
+        console.log("Hubo un error en la db");
+        console.log(e);
+        return res.send(e);
 
     }
     
@@ -194,15 +202,15 @@ pokeRouter.get("/:id",async (req,res) => {
 })
 
 pokeRouter.post("/", async (req,res) => {
-
+    console.log("Aqui")
+    console.log(req.body.name)
     const {name,img,hp,attack,defense,speed,height,weight,type} = req.body;
 
-    if(name.length === 0) return res.send("El nombre del pokemon no puede estar vacío") 
-
+    if(!req.body.name || name.length === 0 ) return res.status(422).json({message: "El nombre del pokemon no puede estar vacío"}) 
     try{
     
         await axios.get(`https://pokeapi.co/api/v2/pokemon/${name}`)
-        return res.send("ERROR: Ya existe un pokemon con este nombre")
+        return res.json({errors: [{message: "name must be unique"}]});
 
     } catch{}
 
