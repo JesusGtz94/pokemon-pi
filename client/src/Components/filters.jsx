@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypes } from "../redux/actions";
+import { FiltersDiv, LabelInput, SelectStyle } from "./filters.styles";
+
 const Filters = ({show, setShow}) => {
 
     const state = useSelector(state => state);
@@ -58,7 +60,7 @@ const Filters = ({show, setShow}) => {
             
             setCambios(oldState =>{return {...oldState, origin: oldState.origin+1}});
 
-    } else {console.log(state)}
+    }
 
     },[filters,state,setShow]);
 
@@ -88,12 +90,11 @@ const Filters = ({show, setShow}) => {
     },[ cambios.origin, setShow ])
 
     useEffect(() => { // Acomoda el arreglo a mostrar segun el order y el descendent
-
+        
         let ordered = [...show.array];
         
         switch(filters.order){
 
-            
             case 'name': 
 
                     ordered.sort((a,b) => {
@@ -152,7 +153,7 @@ const Filters = ({show, setShow}) => {
             setCambios(oldState => {return{...oldState, order: oldState.order+1}})
 
             // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[ cambios.type , filters.descendent, filters.order, setShow]);
+    },[ cambios.type , setShow]);
 
     useEffect(()=>{ // Reinicia el paginado cada vez que se modifica un filtro
 
@@ -161,43 +162,59 @@ const Filters = ({show, setShow}) => {
     },[cambios.order, setShow])
 
     return(
-
-    
         
-        <div>
-            <select value={filters.origin} onChange={handleOnChangeOrigin}>
-                <option value="default">Mostrar Todos</option>
-                <option value="pokemonsApi">Pokemons Oficiales</option>
-                <option value="pokemonsDb">Pokemons Creados</option>
-            </select>
-        
-            <select value={filters.type} onChange={handleOnChangeTypes}>
+        <FiltersDiv>
 
-                <option value='default'>Todos los tipos</option>
+            <LabelInput>
 
-            {state.types
-            ? state.types.map(type => {
+                <label htmlFor="origen">Origen: </label>
 
-                return <option key={type.id} value={type.name}>{type.name}</option>
+                <SelectStyle id= "origen"value={filters.origin} onChange={handleOnChangeOrigin}>
+                    <option value="default">Mostrar Todos</option>
+                    <option value="pokemonsApi">Pokemons Oficiales</option>
+                    <option value="pokemonsDb">Pokemons Creados</option>
+                </SelectStyle>
 
-            }) 
+            </LabelInput>
 
-            :null}
+            <LabelInput>
 
-            </select>
+                <label htmlFor="tipo"> Tipo: </label>
 
-            <select value={filters.order} onChange={handleOnChangeOrder}>
-                <option value="default">Fecha de Registro</option>
-                <option value="name">Nombre</option>
-                <option value="attack">Ataque</option>
-            </select>
+                <SelectStyle id="tipo" value={filters.type} onChange={handleOnChangeTypes}>
 
-            <input type="checkbox" id="checkboxOrder" onChange={handleOnChangeDescendent} checked={filters.descendent}/>
-            <label htmlFor="checkboxOrder">Descendente</label>
+                    <option value='default'>Todos los tipos</option>
 
-            <button onClick={() => {setFilters({...filters, origin: 'default',type:'default', order:'default',descendent:false})}}>Reset</button>
+                {state.types
+                ? state.types.map(type => {
 
-        </div>
+                    return <option key={type.id} value={type.name}>{type.name}</option>
+
+                }) 
+
+                :null}
+
+                </SelectStyle>
+
+            </LabelInput>
+            
+            <LabelInput>
+
+                <label htmlFor="orden"> Ordenar por: </label>
+
+                <SelectStyle id="orden" value={filters.order} onChange={handleOnChangeOrder}>
+                    <option value="default">Fecha de Registro</option>
+                    <option value="name">Nombre</option>
+                    <option value="attack">Ataque</option>
+                </SelectStyle>
+
+                <input type="checkbox" id="checkboxOrder" onChange={handleOnChangeDescendent} checked={filters.descendent}/>
+                <label htmlFor="checkboxOrder">Descendente</label>
+
+                <button onClick={() => {setFilters({...filters, origin: 'default',type:'default', order:'default',descendent:false})}}>Reset</button>
+
+            </LabelInput>
+        </FiltersDiv>
         
 
     )

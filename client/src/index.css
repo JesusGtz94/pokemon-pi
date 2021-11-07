@@ -5,7 +5,19 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: black;
+
+  height: 100%;
+
+  background-color: #525252;
+  color: yellow;
+
+  
+}
+
+html {
+
+  height: 100%;
+
 }
 
 code {

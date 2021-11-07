@@ -1,6 +1,6 @@
-import { Route, HashRouter as Router, Link } from 'react-router-dom';
-import './App.css';
+import { Route, HashRouter as Router} from 'react-router-dom';
 import Catalogo from './Components/catologe';
+import Landing from './Components/landing';
 import NavBar from './Components/navBar';
 import PostForm from './Components/postForm';
 import Posting from './Components/posting';
@@ -8,7 +8,7 @@ import SearchPokemon from './Components/searchPokemon';
 
 function App() {
   return (
-    <div className="App">
+    <div>
       <Router>
 
         <Route path="/home">
@@ -16,8 +16,7 @@ function App() {
         </Route>
 
         <Route exact path="/">
-          <h1>Landing Page</h1>
-          <Link to="/home"><button>Home</button></Link>
+          <Landing/>
         </Route>
 
         <Route exact path="/home">

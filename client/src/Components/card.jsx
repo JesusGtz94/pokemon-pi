@@ -1,4 +1,5 @@
 import { useHistory } from "react-router-dom";
+import { DivCard } from "./card.styles";
 
 const Card = ({id,name,img,types,attack,defense,hp}) => {
 
@@ -16,12 +17,30 @@ const Card = ({id,name,img,types,attack,defense,hp}) => {
     
 
 
-        <div onClick={viewPokemon}>
-                    <img src={img.length > 8 ? img : 'https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png'} alt={name} />
-                    <p> Id: {id} Nombre: {name} Tipo: {types.join('/')}</p>
-                    <p>Ataque: {attack} Defensa: {defense} Vida: {hp}</p>
+        <DivCard type={types[0]} onClick={viewPokemon}>
 
-        </div>
+                <div className="img-box back-box">
+                    <img src={img.length > 8 ? img : 'https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png'} alt={name} />
+                </div>
+
+                <p className="one-box back-box"> <span> Id: </span>{id} </p>
+
+                <div className="two-box">
+                    <div>
+                        <p className="back-box"> <span> Nombre </span><br/> {name} </p>
+                        <p className="back-box"><span>Tipo</span><br/> {types.join('/')}</p>
+
+                    </div>
+                </div>
+
+                <div className="three-box"> 
+                    <div>
+                        <p className="back-box"><span>Ataque</span><br/> {attack}</p>
+                        <p className="back-box"><span>Defensa</span><br/> {defense}</p>
+                        <p className="back-box"><span>Vida</span><br/> {hp}</p>
+                    </div>
+                </div>
+        </DivCard>
 
    
     )

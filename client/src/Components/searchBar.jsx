@@ -38,18 +38,21 @@ const SearchBar = () => {
 
     return(
 
-        <div>
+        <div className="searchBar">
     
-            <label htmlFor="inputSearchBar">Selecciona el tipo de búsqueda</label>
+            <label htmlFor="inputSearchBar">Buscar</label>
 
-            <select value={inputs.select} onChange={handleOnChangeSelect}>
-                <option value="name">Nombre</option>
-                <option value="id">Id</option>
-            </select>
+            <div className="custom-select">
+                <select value={inputs.select} onChange={handleOnChangeSelect}>
+                    <option value="name">Nombre</option>
+                    <option value="id">Id</option>
+                </select>
+            </div>
 
             <input onChange={handleOnChangeInput} value={inputs.input} type="text" placeholder="Ingresa el nombre ó el id..." id="inputSearchBar"/>
 
             <button disabled={inputs.input === ''} onClick={handleSearch}>Buscar</button>
+            
         </div>
 
     )

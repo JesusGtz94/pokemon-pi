@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch} from "react-redux";
 import { getPokemons } from "../redux/actions";
 import Card from "./card";
+import { ButtonPage, CardContainer } from "./cataloge.styles";
 import Filters from "./filters";
 
 const Catalogo = () => {
@@ -48,44 +49,53 @@ const Catalogo = () => {
 
     return (
 
-        <div style = {{color: "yellow"}}> 
+            <CardContainer>
 
-            <Filters show={show} setShow={setShow}/>
-            <br/>
-            <button disabled={ show.start===0
-                    ? true
-                    : false
-                } onClick={backHandle}>Back</button>
+                <section>
 
-            <button disabled={ show.array 
-                    ? show.array[show.end] === undefined
-                        ? true 
-                        : false
-                    : true
-            } onClick={nextHandle}>Next</button>
+                    <Filters show={show} setShow={setShow}/>
 
+                    <br/>
+                <ButtonPage>
+                        <button disabled={ show.start===0
+                                ? true
+                                : false
+                            } onClick={backHandle}>Back</button>
 
-            {show.array
-            ? show.array.slice(show.start,show.end)
-                .map(poke => <Card key = {poke.id} {...poke}/>) 
-            : <div><h2>Ha ocurrido un error, por favor recarga la página!</h2></div>}
+                        <button disabled={ show.array 
+                                ? show.array[show.end] === undefined
+                                    ? true 
+                                    : false
+                                : true
+                        } onClick={nextHandle}>Next</button>
+                </ButtonPage>
 
+                <div className="card-container">
 
-            <button disabled={ show.start===0
-                ? true
-                : false
-            } onClick={backHandle}>Back</button>
+                    {show.array
+                    ? show.array.slice(show.start,show.end)
+                        .map(poke => <Card key = {poke.id} {...poke}/>) 
+                    : <div><h2>Ha ocurrido un error, por favor recarga la página!</h2></div>}
 
-            <button disabled={ show.array 
-                ? show.array[show.end] === undefined
-                    ? true 
-                    : false
-                : true
-            } onClick={nextHandle}>Next</button>
+                </div>
 
-        </div>
+                <ButtonPage className="down">
+                        <button disabled={ show.start===0
+                                ? true
+                                : false
+                            } onClick={backHandle}>Back</button>
 
+                        <button disabled={ show.array 
+                                ? show.array[show.end] === undefined
+                                    ? true 
+                                    : false
+                                : true
+                        } onClick={nextHandle}>Next</button>
+                </ButtonPage>
 
+                </section>
+
+            </CardContainer>
     )
 
 }
