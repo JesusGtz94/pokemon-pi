@@ -35,7 +35,7 @@ const SearchPokemon = () => {
 
     return(
         <>
-            {pokemon.message || pokemon.sql
+            {!pokemon || pokemon.message || pokemon.sql
             ? <>
                 <br/>
                 <NoFoundDiv>

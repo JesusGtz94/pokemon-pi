@@ -17,7 +17,7 @@ return (
 
     <WhiteBackground>
 
-        <DetailDiv type={types ? types[0].name : ""}>
+        <DetailDiv type={types && types[0] ? types[0].name : "normal"}>
 
             <img className="rectangle" src={img.length > 8 ? img : 'https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png'} alt={name}/>
 
@@ -33,7 +33,7 @@ return (
 
                 <div className="rectangle">
 
-                    <p><span>Tipo: </span>{`${types ? types[0].name : ""} ${types ? types[1] ? ` / ${types[1].name}` : "" : ""}`}</p>
+                    <p><span>Tipo: </span>{`${types && types[0] ? types[0].name : "?"} ${types ? types[1] ? ` / ${types[1].name}` : "" : ""}`}</p>
 
                 </div>
 

@@ -22,7 +22,8 @@ module.exports = (sequelize) => {
     },
 
     img: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      defaultValue: ''
     },
 
     hp: {

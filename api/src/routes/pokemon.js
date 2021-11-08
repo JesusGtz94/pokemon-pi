@@ -174,11 +174,10 @@ pokeRouter.get("/:id",async (req,res) => {
                 weight: instance.weight,
                 types
             }
-         
             res.json(pokemon);
 
         } catch(e){
-             res.send(e);
+             res.status(404).send(e);
         }
 
     } else{
@@ -195,7 +194,7 @@ pokeRouter.get("/:id",async (req,res) => {
             res.json(instance);
 
         }catch(e){
-            res.send(e);
+            res.status(404).send(e);
         }
     }
 

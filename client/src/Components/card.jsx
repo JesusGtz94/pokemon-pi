@@ -17,7 +17,7 @@ const Card = ({id,name,img,types,attack,defense,hp}) => {
     
 
 
-        <DivCard type={types[0]} onClick={viewPokemon}>
+        <DivCard type={types[0]? types[0] : "normal"} onClick={viewPokemon}>
 
                 <div className="img-box back-box">
 
@@ -30,7 +30,7 @@ const Card = ({id,name,img,types,attack,defense,hp}) => {
                 <div className="two-box">
                     <div>
                         <p className="back-box"> <span> Nombre </span><br/> {name} </p>
-                        <p className="back-box"><span>Tipo</span><br/> {types.join('/')}</p>
+                        <p className="back-box"><span>Tipo</span><br/> {types[0] ? types.join('/') : "?"}</p>
 
                     </div>
                 </div>

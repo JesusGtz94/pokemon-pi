@@ -25,7 +25,7 @@ const {Type} = require('./src/db.js');
 axios
 
 // Syncing all the models at once.
-conn.sync({ force: false }) 
+conn.sync({ force: true }) 
  
 // Este then agrega los Types de la API en la base de datos al iniciar el servidor
 .then(() => {
