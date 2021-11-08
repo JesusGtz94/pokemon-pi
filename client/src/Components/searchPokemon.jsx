@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams , useHistory } from "react-router-dom";
 import PokeDetail from "./pokeDetail";
+import { HomeButton } from "./pokeDetail.styles";
+import { NoFoundDiv } from "./searchPokemon.styles";
 
 
 const SearchPokemon = () => {
 
     const {id, name} = useParams();
     const [pokemon, setPokemon] = useState({});
-    
+    const history = useHistory();
+
+    const goHome = () => {
+        history.push('/home')
+    }
+
     useEffect(()=>{
 
         if(id !== 'pokemon'){
@@ -29,7 +36,13 @@ const SearchPokemon = () => {
     return(
         <>
             {pokemon.message || pokemon.sql
-            ? <><br/><div>Pokemon no encontrado</div></>
+            ? <>
+                <br/>
+                <NoFoundDiv>
+                Pokémon no encontrado 
+                <HomeButton onClick={goHome}>Home</HomeButton>
+                </NoFoundDiv>
+              </>
             : <PokeDetail {...pokemon}/>
             }
             

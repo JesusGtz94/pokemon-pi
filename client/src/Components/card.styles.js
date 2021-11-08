@@ -1,4 +1,3 @@
-import { lighten } from "polished";
 import styled from "styled-components";
 import { stylesVar } from "./variablesCss";
 
@@ -33,7 +32,10 @@ export const DivCard = styled.div`
     }
 
     img{
+
         height: 18rem;
+        max-width: 18rem;
+
     }
 
     span{   

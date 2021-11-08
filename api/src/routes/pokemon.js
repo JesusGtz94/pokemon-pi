@@ -202,8 +202,7 @@ pokeRouter.get("/:id",async (req,res) => {
 })
 
 pokeRouter.post("/", async (req,res) => {
-    console.log("Aqui")
-    console.log(req.body.name)
+
     const {name,img,hp,attack,defense,speed,height,weight,type} = req.body;
 
     if(!req.body.name || name.length === 0 ) return res.status(422).json({message: "El nombre del pokemon no puede estar vacío"}) 

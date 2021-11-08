@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router";
 import { postPokemon } from "../redux/actions";
 import Errors from "./errores";
+import { HomeButton } from "./pokeDetail.styles";
+import { PostingDiv } from "./posting.styles";
 
 const Posting = () => {
 
@@ -45,18 +47,19 @@ const Posting = () => {
 
 
     return (
-        <div>
+
+        <PostingDiv>
             <h2>Estado de la públicacion</h2>
         {response.hp
-            ?   <div>Pokemon publicado con éxito!!</div>
+            ?   <div className="error"><Errors type="success" errors={["Pokémon publicado con éxito"]}/></div>
             :   response.errors
-                ? <Errors errors={["Pokémon no publicado","Este pokémon ya se encuentra registrado ó existe otro con el mismo nombre","Intenta nuevamente con un nombre diferente"]}/>
-                : <Errors errors={["No hay un pókemon para publicar"]}/>
+                ? <div className="error"><Errors type="error" errors={["Pokémon no publicado","Este pokémon ya se encuentra registrado ó existe otro con el mismo nombre","Intenta nuevamente con un nombre diferente"]}/></div>
+                : <div className="error"><Errors type="warning" errors={["Publicando, espera un momento por favor","Si este mensaje dura demasiado por favor intentalo nuevamente"]}/></div>
         }
 
-            <button onClick={backToHome}>Volver al Home</button>
+            <HomeButton onClick={backToHome}>Volver al Home</HomeButton>
 
-        </div>
+        </PostingDiv>
 
     )
 

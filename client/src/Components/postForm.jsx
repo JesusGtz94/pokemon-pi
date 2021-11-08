@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { getTypes, postPokemon } from "../redux/actions";
 import Errors from "./errores";
+import { SelectStyle } from "./filters.styles";
+import { HomeButton} from "./pokeDetail.styles";
+import { H2Form, StyleForm } from "./postForm.styles";
 
 const PostForm = () => {
 
@@ -36,42 +39,42 @@ const PostForm = () => {
         hp: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor en \"vida\"", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor en \"vida\"", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
         attack: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
         defense: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
         speed: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
         height: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
         weight: {
 
             isValidate : true,
-            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numero negativos"]
+            validations : ["Debes colocar un valor", "El valor debe contener solo numeros", "No se aceptan numeros negativos"]
 
         },
 
@@ -236,72 +239,137 @@ const PostForm = () => {
 
     return (
 
-        <form>
-
-            <label htmlFor="namePost">Nombre: </label>
-            <input id= "namePost" name="name" type="text" value={inputs.name} onChange={handleOnchangeInput} />
-
-            {validations.name.isValidate?null:<Errors errors={validations.name.validations}/>}
-
-            <label htmlFor="imgPost">Imagen url (opcional): </label>
-            <input id="imgPost" name="img" type="text" value={inputs.img} onChange={handleOnchangeInput}/>
-
-    
-            <label htmlFor="hpPost">Vida: </label>
-            <input id="hpPost" name="hp" type="number" value={inputs.hp} onChange={handleOnchangeInput}/>
-
-            {validations.hp.isValidate?null:<Errors errors={validations.hp.validations}/>}
+        <>
             
-            <label htmlFor="attackPost">Ataque: </label>
-            <input id="attackPost" name="attack" type="number" value={inputs.attack} onChange={handleOnchangeInput}/>
+            <H2Form>Publicar un Pokémon</H2Form>
 
-            {validations.attack.isValidate?null:<Errors errors={validations.attack.validations}/>}
+            <StyleForm>
 
-            <label htmlFor="defensePost">Defensa: </label>
-            <input id="defensePost" name="defense" type="number" value={inputs.defense} onChange={handleOnchangeInput}/>
+                <div className="box-one">
+                    
+                    <div className="input-box">
+                        <label htmlFor="namePost">Nombre: </label>
+                        <input id= "namePost" name="name" type="text" value={inputs.name} onChange={handleOnchangeInput} />
+                    </div>
 
-            {validations.defense.isValidate?null:<Errors errors={validations.defense.validations}/>}
+                    {validations.name.isValidate?null:<Errors type="error" errors={validations.name.validations}/>}
+                </div>
+        
+                <div className = "box-two">
 
-            <label htmlFor="speedPost">Velocidad: </label>
-            <input id="speedPost" name="speed" type="number" value={inputs.speed} onChange={handleOnchangeInput}/>
+                    <div className="box-one">
 
-            {validations.speed.isValidate?null:<Errors errors={validations.speed.validations}/>}
+                        <div className="input-box">
+                            <label htmlFor="hpPost">Vida: </label>
+                            <input id="hpPost" name="hp" type="number" value={inputs.hp} onChange={handleOnchangeInput}/>
+                        </div>
 
-            <label htmlFor="heightPost">Tamaño: </label>
-            <input id="heightPost" name="height" type="number" value={inputs.height} onChange={handleOnchangeInput}/>
+                        {validations.hp.isValidate?null:<Errors type="error" errors={validations.hp.validations}/>}
+                    </div>
 
-            {validations.height.isValidate?null:<Errors errors={validations.height.validations}/>}
+                    <div className="box-one">
+                        <div className="input-box">
+                            <label htmlFor="attackPost">Ataque: </label>
+                            <input id="attackPost" name="attack" type="number" value={inputs.attack} onChange={handleOnchangeInput}/>
+                        </div>
 
-            <label htmlFor="weightPost">Peso: </label>
-            <input id="weightPost" name="weight" type="number" value={inputs.weight} onChange={handleOnchangeInput}/>
+                    {validations.attack.isValidate?null:<Errors type="error" errors={validations.attack.validations}/>}
+                    </div>
 
-            {validations.weight.isValidate?null:<Errors errors={validations.weight.validations}/>}
-            
-            <label htmlFor="typeOnePost">Tipo 1: </label>
-            <select name="typeOne" id="typeOnePost" value={inputs.typeOne} onChange={handleOnchangeInput}>
-                <option value='default'>-- Seleccione un tipo --</option>
-                {types.length > 0 
-                    ? types.map(type => {return <option value={type.id} key={type.id}>{type.name}</option>})
-                    : null 
-                }
-            </select>
+                </div>
 
-            {validations.typeOne.isValidate?null:<Errors errors={validations.typeOne.validations}/>}
+                <div className = "box-two">
 
-            <label htmlFor="typeTwoPost">Tipo 2 (opcional): </label>
-            <select name="typeTwo" id="typeTwoPost" value={inputs.typeTwo} onChange={handleOnchangeInput}>
-                <option value='default'>n/a</option>
-                {types.length > 0 
-                    ? types.map(type => {return <option value={type.id} key={type.id}>{type.name}</option>})
-                    : null 
-                }
-            </select>
+                    <div className="box-one">
+                        <div className="input-box">
+                            <label htmlFor="defensePost">Defensa: </label>
+                            <input id="defensePost" name="defense" type="number" value={inputs.defense} onChange={handleOnchangeInput}/>
+                        </div>
 
-            {validations.typeTwo.isValidate?null:<Errors errors={validations.typeTwo.validations}/>}
+                        {validations.defense.isValidate?null:<Errors type="error" errors={validations.defense.validations}/>}
+                    </div>
 
-            <button onClick={handleSubmit}>Publicar</button>
+                    <div className="box-one">
 
-        </form>
+                        <div className="input-box">
+                            <label htmlFor="speedPost">Velocidad: </label>
+                            <input id="speedPost" name="speed" type="number" value={inputs.speed} onChange={handleOnchangeInput}/>
+                        </div>
+
+                        {validations.speed.isValidate?null:<Errors type="error" errors={validations.speed.validations}/>}
+                    </div>
+
+                </div>
+
+                <div className="box-two">
+
+                    <div className="box-one">
+                        <div className="input-box">
+                            <label htmlFor="heightPost">Tamaño: </label>
+                            <input id="heightPost" name="height" type="number" value={inputs.height} onChange={handleOnchangeInput}/>
+                        </div>
+
+                        {validations.height.isValidate?null:<Errors type="error" errors={validations.height.validations}/>}
+                    </div>
+
+                <div className="box-one">
+
+                    <div className="input-box">
+                        <label htmlFor="weightPost">Peso: </label>
+                        <input id="weightPost" name="weight" type="number" value={inputs.weight} onChange={handleOnchangeInput}/>
+                    </div>
+
+                    {validations.weight.isValidate?null:<Errors type="error" errors={validations.weight.validations}/>}
+                </div>
+
+                </div>
+
+                <div className="box-two">
+
+                    <div className="box-one">
+                        <div className="input-box">
+                            <label htmlFor="typeOnePost">Tipo 1: </label>
+                            <SelectStyle name="typeOne" id="typeOnePost" value={inputs.typeOne} onChange={handleOnchangeInput}>
+                                <option value='default'>-- Seleccione un tipo --</option>
+                                {types.length > 0 
+                                    ? types.map(type => {return <option value={type.id} key={type.id}>{type.name}</option>})
+                                    : null 
+                                }
+                            </SelectStyle>
+                        </div>
+
+                        {validations.typeOne.isValidate?null:<Errors type="error" errors={validations.typeOne.validations}/>}
+                    </div>
+
+                    <div className="box-one">
+                        <div className="input-box">
+                            <label htmlFor="typeTwoPost">Tipo 2 (opcional): </label>
+                            <SelectStyle name="typeTwo" id="typeTwoPost" value={inputs.typeTwo} onChange={handleOnchangeInput}>
+                                <option value='default'>n/a</option>
+                                {types.length > 0 
+                                    ? types.map(type => {return <option value={type.id} key={type.id}>{type.name}</option>})
+                                    : null 
+                                }
+                            </SelectStyle>
+                        </div>
+
+                        {validations.typeTwo.isValidate?null:<Errors type="error" errors={validations.typeTwo.validations}/>}
+                    </div>
+
+                </div>
+                
+                <div className="box-one">
+                    <div className="input-box">
+                        <label htmlFor="imgPost">Imagen url (opcional): </label>
+                        <input className="imgInput-fix" id="imgPost" name="img" type="text" value={inputs.img} onChange={handleOnchangeInput}/>
+                    </div>
+                </div>
+
+                <HomeButton onClick={handleSubmit}>Publicar</HomeButton>
+
+            </StyleForm>
+
+        </>
 
     )
 

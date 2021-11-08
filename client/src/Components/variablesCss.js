@@ -3,6 +3,9 @@ export const stylesVar = {
 
     blue: "#147af7",
     red: "#a32418",
+    error: '#ed5a5a',
+    warning: '#fffcc2',
+    success: '#8ff29c',
     ligthGray: '#bdbdbd',
     
     fatFont: "'Bebas Neue', cursive",

@@ -20,7 +20,9 @@ const Card = ({id,name,img,types,attack,defense,hp}) => {
         <DivCard type={types[0]} onClick={viewPokemon}>
 
                 <div className="img-box back-box">
+
                     <img src={img.length > 8 ? img : 'https://assets.thespinoff.co.nz/1/2019/04/HddtBOT.png'} alt={name} />
+                    
                 </div>
 
                 <p className="one-box back-box"> <span> Id: </span>{id} </p>

@@ -1,11 +1,12 @@
+import { ErrorLi } from "./errores.styles";
 
-const Errors = ({errors}) => {
+const Errors = ({errors,type}) => {
 
     let id = 0;
 
     return(
 
-        <ul>
+        <ErrorLi type={type}>
             {
             errors.map(err => {
             
@@ -13,7 +14,7 @@ const Errors = ({errors}) => {
                 return <li key={id}>{err}</li>
 
             })}
-        </ul>
+        </ErrorLi>
 
     )
 
