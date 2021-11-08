@@ -13,6 +13,7 @@ export const getPokemons = () => {
         .then(json => {
             dispatch({type: GET_POKEMONS, payload: json})
         })
+        .catch(e =>  dispatch({type: GET_POKEMONS, payload: [[],[]]}))
 
     }
 
@@ -26,7 +27,7 @@ export const getTypes = () => {
         .then(r => r.json())
         .then(json => {
             dispatch({type: GET_TYPES, payload: json})
-        })
+        }).catch(e =>  dispatch({type: GET_POKEMONS, payload: []}))
 }
 
 }

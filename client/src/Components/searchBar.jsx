@@ -20,7 +20,9 @@ const SearchBar = () => {
 
     }
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
+
+        e.preventDefault();
 
         if(inputs.select === 'name'){
 
@@ -48,11 +50,13 @@ const SearchBar = () => {
                     <option value="id">Id</option>
                 </select>
             </div>
-
-            <input onChange={handleOnChangeInput} value={inputs.input} type="text" placeholder="Ingresa el nombre ó el id..." id="inputSearchBar"/>
-
-            <button disabled={inputs.input === ''} onClick={handleSearch}>Buscar</button>
             
+            <form style={{display:"flex"}}>
+                <input onChange={handleOnChangeInput} value={inputs.input} type="text" placeholder="Ingresa el nombre ó el id..." id="inputSearchBar"/>
+
+                <button disabled={inputs.input === ''} onClick={handleSearch}>Buscar</button>
+            </form>
+                
         </div>
 
     )

@@ -22,13 +22,14 @@ const SearchPokemon = () => {
                 fetch(`http://127.0.0.1:3001/pokemons/${id}`)
                 .then(r => r.json())
                 .then(json => setPokemon(json))
+                .catch(e => setPokemon(false))
 
         } else {
 
                 fetch(`http://127.0.0.1:3001/pokemons?name=${name}`)
                 .then(r => r.json())
                 .then(json => {setPokemon(json)})
-
+                .catch(e => setPokemon(false))
         
         }
     },[id,name])
