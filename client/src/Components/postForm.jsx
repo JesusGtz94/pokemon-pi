@@ -12,6 +12,7 @@ const PostForm = () => {
     const types = useSelector(state => state.types);
     const dispatch = useDispatch();
     const history = useHistory();
+    const [firstCheck , setCheck] = useState(true)
     const [inputs, setInputs] = useState({
 
         name: '',
@@ -26,7 +27,6 @@ const PostForm = () => {
         typeTwo: 'default'       
 
     })
-
     const [validations , setValidations] = useState({
 
         name: {
@@ -94,15 +94,7 @@ const PostForm = () => {
 
     });
 
-    const handleOnchangeInput = (e) => {
-
-        setInputs(oldState => {return {...oldState, [e.target.name]:e.target.value}});
-
-    }
-
-    const handleSubmit = (e) => {
-
-        e.preventDefault();
+    const validate = () => {
 
         let approved = true;
 
@@ -203,7 +195,22 @@ const PostForm = () => {
 
         }
 
-        if(approved){
+        return approved;
+
+    }
+
+    const handleOnchangeInput = (e) => {
+
+        setInputs(oldState => {return {...oldState, [e.target.name]:e.target.value}});
+
+    }
+
+    const handleSubmit = (e) => {
+
+        e.preventDefault();
+        setCheck(false);
+
+        if(validate()){
 
             let pokemon = {
 
@@ -236,6 +243,17 @@ const PostForm = () => {
         }
 
     },[dispatch, types.length])
+
+    useEffect(()=> {
+
+        if(!firstCheck){
+
+            validate();
+
+        }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[inputs,firstCheck])
 
     return (
 

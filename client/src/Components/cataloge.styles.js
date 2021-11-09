@@ -30,6 +30,10 @@ export const CardContainer = styled.div`
             margin-bottom: 2rem;
         }
 
+    .alert{
+        font-size: 2rem;
+    }
+
 `
 
 export const ButtonPage = styled.div`

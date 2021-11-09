@@ -7,7 +7,7 @@ export const NavBarDiv = styled.div`
     border-end-end-radius: 3rem;
 
     font-family: ${stylesVar.mainFont};
-    font-size: 1.4rem;
+    font-size: 2rem;
 
     .bar {
 
@@ -56,7 +56,7 @@ export const NavBarDiv = styled.div`
 
             color: white;
             font-family: ${stylesVar.mainFont};
-            font-size: 1.4rem;
+            font-size: 1.75rem;
             background-color: ${stylesVar.red};
             border: none;
             margin-left: 0.5rem;

@@ -72,10 +72,10 @@ const Catalogo = () => {
 
                 <div className="card-container">
 
-                    {show.array
+                    {show.array.length > 0
                     ? show.array.slice(show.start,show.end)
                         .map(poke => <Card key = {poke.id} {...poke}/>) 
-                    : <div><h2>Ha ocurrido un error, por favor recarga la página!</h2></div>}
+                    : <div className="alert"><h2>No hay pokemons para mostrar</h2></div>}
 
                 </div>
 
