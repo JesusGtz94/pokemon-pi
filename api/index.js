@@ -44,22 +44,23 @@ conn.sync({ force: true })
         r = r.data.results;
         let promises = [];
         for(let i = 0 ; i< r.length ; i++)
-        {   
-            try{
-                
-                promises.push(Type.create({
-      
-                name: r[i].name
-      
-            }))
-            }catch(e){
-                console.log(e)
-            }
+        {         
+    
+          promises.push(Type.create({
+          name: r[i].name
+          }))
       
         }
-    
-        Promise.all(promises)
-    
+        
+        try{
+
+          Promise.all(promises)
+
+        } catch(e){
+
+          console.log(e)
+          
+        }
     
       })
     

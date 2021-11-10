@@ -5,7 +5,7 @@ const { portalSuspended } = require("pg-protocol/dist/messages");
 
 const pokeRouter = Router();
 
-pokeRouter.get("/",async (req,res) => {
+pokeRouter.get("/",async (req,res) => { // Peticion de todos los pokemons o pokemons por nombre (cuando se manda name por query)
 
     const {name} = req.query;
 
@@ -146,7 +146,7 @@ pokeRouter.get("/",async (req,res) => {
 
 })
 
-pokeRouter.get("/:id",async (req,res) => {
+pokeRouter.get("/:id",async (req,res) => { // Peticion de pokemon por id
     
     const {id} = req.params
     let instance;
@@ -200,7 +200,7 @@ pokeRouter.get("/:id",async (req,res) => {
 
 })
 
-pokeRouter.post("/", async (req,res) => {
+pokeRouter.post("/", async (req,res) => { // Publicar un pokemon
 
     const {name,img,hp,attack,defense,speed,height,weight,type} = req.body;
 
